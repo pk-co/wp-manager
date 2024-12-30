@@ -10,5 +10,25 @@
     */
 
 
-        
+// prevent the direct access
+if(!defined("ABSPATH")){
+    exit;
+}
+
+//  add action hook create custom MENU
+add_action("admin_menu", "wp_add_admin_menu");
+
+// create custom admin MENU
+function wp_add_admin_menu(){
+    // Adds a top level menu page
+    add_menu_page(
+        'Managers Details',  // Page Title
+        'Managers',          // Menu Title
+        'manage_options',    // manage_options
+        'manage_managers',  
+        'wp_admin_page'
+
+    );
+}
+
 ?>
