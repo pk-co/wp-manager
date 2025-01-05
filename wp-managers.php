@@ -84,7 +84,39 @@ function wp_admin_page(){
         <h2>Manager List</h2>
      </div>
 
-    <?php
-    
+    <?php   
 }
+
+// Function to display all employees
+function em_display_employees() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'employees';
+    $results = $wpdb->get_results("SELECT * FROM $table_name");
+
+    echo '<table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>';
+    foreach ($results as $row) {
+        echo "<tr>
+                <td>{$row->id}</td>
+                <td>{$row->name}</td>
+                <td>{$row->age}</td>
+                <td>{$row->phone}</td>
+                <td>
+                    <a href='?page=employee_manager&edit={$row->id}' class='button'>Edit</a>
+                    <a href='?page=employee_manager&delete={$row->id}' class='button'>Delete</a>
+                </td>
+              </tr>";
+    }
+    echo '</tbody></table>';
+}
+
 
