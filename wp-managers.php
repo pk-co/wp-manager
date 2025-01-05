@@ -6,7 +6,7 @@
     Version: 1.0.1
     Author: Prasa
     Plugin URI: https://example.plugin
-    AUthor URI: https://example.prasa.com
+    Author URI: https://example.prasa.com
     */
 
 
@@ -31,9 +31,27 @@ function wp_add_admin_menu(){
     );
 }
 
+// Register the activation hook create table
+register_activation_hook(__FILE__, "wp_create_manager_table");
+
+// create wp_manager table
+function wp_create_manager_table(){
+    global $wpdb;  // global db object
+    $table_name = $wpdb->prefix . "managers";
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql_comand =  "CREATE TABLE $table_name (
+        `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+        `name` varchar(50) NOT NULL,
+        `age` int(5) NOT NULL,
+        `phone` varchar(15) NOT NULL,
+        `email` varchar(50) DEFAULT NULL,
+        PRIMARY KEY(`id`)
+        ) $charset_collate ";
+}
+
 // admin page
 function wp_admin_page(){
-    
     
     ?>
      <div class="wrap">
